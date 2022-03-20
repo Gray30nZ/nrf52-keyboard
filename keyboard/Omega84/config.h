@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CONF_VENDOR_ID 0x4366 /* 配置项目内显示的VendorID */
 #define CONF_PRODUCT_ID 0x0318 /* 配置项目内显示的ProductID */
 #define DEVICE_VER 0x0000 /* 硬件版本 */
-#define MANUFACTURER "Lotlab" /* 硬件制造商，用于蓝牙显示 */
-#define PRODUCT "Omega84" /* 硬件名词，用于蓝牙显示 */
+#define MANUFACTURER "Substance" /* 硬件制造商，用于蓝牙显示 */
+#define PRODUCT "Flora" /* 硬件名词，用于蓝牙显示 */
 #define MACADDR_SEPRATOR ' ' /* 蓝牙名称后地址的分隔符。若不设置则不显示蓝牙名称后面的地址 */
 
 /* USB HID report parameter */
@@ -58,6 +58,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MACRO_STORAGE /* 启用宏存储功能 */
 #define CONFIG_STORAGE /* 启用配置存储功能 */
 
+// 旋钮配置
+#define ROTARY_ENCODER_A 3 // 编码器A脚IO 18
+#define ROTARY_ENCODER_B 4 // 编码器B脚IO 19
+// 旋钮正向按钮映射
+#define ROTARY_ENCODER_POS 0,0 // 正向旋转映射到键盘的按键行列
+// 旋钮负向按钮映射
+#define ROTARY_ENCODER_NEG 0,1 // 负向旋转映射到键盘的按键行列
+
+#define LOW_POWER_QDEC_TICKS 2 // 定义低功耗模式下旋转编码器每隔多少ms扫描一次，不写则不使用低功耗模式
+
+#define SSD1306_SDA 5 // OLED屏幕的I2C SDA引脚编号 20
+#define SSD1306_SCL 6 // OLED屏幕的I2C SCL引脚编号 21
+#define SSD1306_ROTATE_180 // 旋转180度
+#define SSD1306_LCDHEIGHT 32 //OLED屏幕的高度像素，当前支持32与64，默认为32
+
 // #define DEBUG_SKIP_PWRON_CHECK /*  直接开机而跳过开机条件检测，用于调试 */
 
 /* TMK固件内置功能 */
@@ -68,53 +83,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-// LED 配置
-#define LED_CAPS 4
-
 // ws2812 RGB 配置
-#define RGB_DI_PIN 10
-#define RGBLED_NUM 8
+#define RGB_DI_PIN 2
+#define RGBLED_NUM 107
 #define RGBLIGHT_ANIMATIONS
-#define RGB_PWR_PIN 11 // P-mos
+//#define RGB_PWR_PIN 11 // P-mos
 //#define RGB_PWR_PIN_REVERSE 20 // N-mos
-
-// 3灯指示配置引脚
-#define LED_STATUS_BLE 7
-#define LED_STATUS_USB 6
-#define LED_STATUS_CHARGING 5
-#define LED_BLE_CHANNEL1 7
-#define LED_BLE_CHANNEL2 6
-#define LED_BLE_CHANNEL3 5
-#define LED_POSITIVE // LED上拉驱动
-
-// 独立硬件按钮
-#define POWER_BUTTON 3
 
 // USB UART 传输配置
 #define HAS_USB // 启用与CH554的通信支持
-#define UART_RXD 8 // UART_RX口IO 17
-#define UART_TXD 9 // UART_TX口IO 18
+#define UART_RXD 26 // UART_RX口IO 6
+#define UART_TXD 25 // UART_TX口IO 5
 //#define UART_DET 19 // UART 检测引脚，若此脚被拉低，则说明USB正在工作。若不配置则使用RX口作为检测引脚
 #define UART_BAUDRATE NRF_UART_BAUDRATE_115200 // 通信波特率，请不要修改
 
 // 电量检测配置
-#define BATTERY_ADC_PIN NRF_SAADC_INPUT_AIN0 // 电量检测引脚 Pin 2
+#define BATTERY_ADC_PIN 13 // 电量检测引脚 Pin 28
 
 // 充电检测配置
 //#define PIN_CHARGING !UCC1
 //#define PIN_STANDBY !UCC2
 
 // 按键阵列配置
-#define MATRIX_ROWS 9 /* 硬件阵列行数 */
-#define MATRIX_COLS 10 /* 硬件阵列列数 */
+#define MATRIX_ROWS 6 /* 硬件阵列行数 */
+#define MATRIX_COLS 16 /* 硬件阵列列数 */
 
 /* key combination for command */
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
-static const uint8_t row_pin_array[MATRIX_ROWS] = { 26, 30, 29, 28, 27, 12, 13, 14, 15 };
-static const uint8_t column_pin_array[MATRIX_COLS] = { 23, 22, 21, 24, 25, 16, 17, 20, 19, 18 };
-#define ROW_IN // 键盘阵列的二极管方向是从COL->ROW
+static const uint8_t row_pin_array[MATRIX_ROWS] = { 7, 8, 9, 10, 11, 12 };
+static const uint8_t column_pin_array[MATRIX_COLS] = { 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 31, 30, 29, 28, 27 };
+//#define ROW_IN // 键盘阵列的二极管方向是从COL->ROW
 
 /* define if matrix has ghost */
 // #define MATRIX_HAS_GHOST /* 按键阵列是否出现Ghost Key，若没有加二极管则需要启用这个项目 */
