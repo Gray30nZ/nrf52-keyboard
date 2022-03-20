@@ -13,5 +13,6 @@ COMMAND_ENABLE = yes      # 启用调试和配置的命令
 ifeq (nrf52832,$(strip $(NRF_CHIP)))
 RGBLIGHT_ENABLE = yes     #启用WS2812灯
 endif
-THREE_LED_STATUS = yes    #启用键盘运行状态灯
+ROTARY_ENCODER = yes
+SSD1306_OLED = yes
 ONBOARD_CMSIS_DAP = yes   # 启用板载调试器
